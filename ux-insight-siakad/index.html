@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UX Insight | Evaluasi SIAKAD</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-icon">UX</div>
+      <div><strong>UX Insight</strong><span>Student Experience</span></div>
+    </div>
+    <div class="nav-label">MENU UTAMA</div>
+    <nav>
+      <a href="#overview" class="nav-link active" data-section="overview"><span>▦</span> Ringkasan</a>
+      <a href="#analysis" class="nav-link" data-section="analysis"><span>▥</span> Analisis Aspek</a>
+      <a href="#recommendations" class="nav-link" data-section="recommendations"><span>✦</span> Rekomendasi UX</a>
+    </nav>
+    <div class="sidebar-note">
+      <div class="note-icon">ⓘ</div>
+      <strong>Studi Kasus HCI</strong>
+      <p>Dashboard simulasi untuk mengevaluasi pengalaman mahasiswa saat menggunakan SIAKAD.</p>
+    </div>
+    <div class="sidebar-footer"><span class="status-dot"></span> Data simulasi untuk pembelajaran</div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <button class="menu-button" id="menuButton" aria-label="Buka menu">☰</button>
+      <div class="breadcrumb">Studi Kasus <span>/</span> <strong>Evaluasi SIAKAD</strong></div>
+      <div class="profile">
+        <div class="avatar">UX</div>
+        <div><strong>UX Research</strong><span>Dashboard Mahasiswa</span></div>
+      </div>
+    </header>
+
+    <section class="page-section" id="overview">
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">HUMAN-COMPUTER INTERACTION · DATA VISUALIZATION</p>
+          <h1>Evaluasi Pengalaman Pengguna SIAKAD</h1>
+          <p class="subtitle">Pahami pengalaman mahasiswa dan temukan bagian layanan akademik yang perlu ditingkatkan.</p>
+        </div>
+        <div class="date-chip">● Periode simulasi: Oktober 2026</div>
+      </div>
+
+      <div class="notice"><span>ⓘ</span><p><strong>Catatan studi kasus:</strong> seluruh angka dan hasil survei pada dashboard ini adalah data simulasi, bukan hasil survei resmi mahasiswa.</p></div>
+
+      <div class="filter-row">
+        <div><label for="aspectFilter">Aspek yang dianalisis</label>
+          <select id="aspectFilter">
+            <option value="all">Semua aspek</option>
+            <option value="Navigasi">Navigasi</option>
+            <option value="Tampilan">Tampilan</option>
+            <option value="Kemudahan KRS">Kemudahan KRS</option>
+            <option value="Kecepatan">Kecepatan</option>
+            <option value="Informasi">Informasi akademik</option>
+          </select>
+        </div>
+        <button class="reset-button" id="resetFilter">Atur ulang</button>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card">
+          <div class="stat-top"><span>Responden simulasi</span><span class="stat-icon blue">♙</span></div>
+          <div class="stat-value" id="respondentValue">120</div>
+          <div class="stat-foot">Mahasiswa dalam data contoh</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Skor UX rata-rata</span><span class="stat-icon purple">✦</span></div>
+          <div class="stat-value"><span id="scoreValue">3.6</span><small>/ 5</small></div>
+          <div class="stat-foot"><span class="mini-dot"></span> Kategori cukup baik</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Aspek tertinggi</span><span class="stat-icon green">↗</span></div>
+          <div class="stat-value compact" id="highestValue">Informasi</div>
+          <div class="stat-foot">Skor terbaik pada data contoh</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Perlu prioritas</span><span class="stat-icon orange">!</span></div>
+          <div class="stat-value compact" id="lowestValue">Kemudahan KRS</div>
+          <div class="stat-foot">Aspek dengan skor terendah</div>
+        </article>
+      </div>
+
+      <div class="charts-grid">
+        <article class="panel chart-panel">
+          <div class="panel-heading">
+            <div><h2>Skor Pengalaman Pengguna</h2><p>Rata-rata penilaian pada setiap aspek</p></div>
+            <span class="legend-label"><i></i> Skor dari 5</span>
+          </div>
+          <div class="chart-wrap"><canvas id="barChart"></canvas></div>
+        </article>
+        <article class="panel chart-panel">
+          <div class="panel-heading">
+            <div><h2>Kategori Kepuasan</h2><p>Distribusi jawaban responden simulasi</p></div>
+          </div>
+          <div class="donut-wrap"><canvas id="donutChart"></canvas></div>
+          <div class="chart-legend">
+            <span><i class="legend-green"></i Puas</span>
+            <span><i class="legend-yellow"></i> Cukup puas</span>
+            <span><i class="legend-red"></i> Tidak puas</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="page-section" id="analysis">
+      <div class="section-title"><div><p class="eyebrow">DATA INSIGHT</p><h2>Analisis Setiap Aspek</h2><p class="subtitle">Bandingkan skor simulasi untuk menentukan bagian yang paling membutuhkan perhatian.</p></div></div>
+      <div class="panel table-panel">
+        <div class="table-head"><h3>Rangkuman hasil evaluasi</h3><span class="table-badge">Skala 1–5</span></div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Aspek</th><th>Skor</th><th>Penilaian</th><th>Prioritas</th></tr></thead>
+            <tbody id="analysisTable"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="insight-box">
+        <div class="insight-symbol">✧</div>
+        <div><h3>Insight utama</h3><p id="insightText">Kemudahan KRS memiliki skor terendah dalam data simulasi. Alur pengisian KRS dapat ditinjau kembali agar langkah-langkahnya lebih jelas bagi mahasiswa.</p></div>
+      </div>
+    </section>
+
+    <section class="page-section" id="recommendations">
+      <div class="section-title"><div><p class="eyebrow">USER-CENTERED DESIGN</p><h2>Rekomendasi Perbaikan UX</h2><p class="subtitle">Ide perbaikan berdasarkan hasil simulasi, yang tetap perlu divalidasi dengan pengguna sebenarnya.</p></div></div>
+      <div class="recommendation-grid">
+        <article class="recommendation-card">
+          <div class="rec-icon lavender">01</div><span class="priority high">Prioritas tinggi</span>
+          <h3>Sederhanakan alur KRS</h3><p>Gunakan langkah yang berurutan, tampilkan prasyarat mata kuliah, dan beri konfirmasi sebelum mahasiswa menyimpan KRS.</p>
+          <div class="rec-tags"><span>Wireframe</span><span>Usability testing</span></div>
+        </article>
+        <article class="recommendation-card">
+          <div class="rec-icon mint">02</div><span class="priority medium">Prioritas menengah</span>
+          <h3>Perjelas navigasi</h3><p>Kelompokkan menu berdasarkan kebutuhan mahasiswa, gunakan label yang mudah dipahami, dan jaga konsistensi posisi menu.</p>
+          <div class="rec-tags"><span>User journey</span><span>Information architecture</span></div>
+        </article>
+        <article class="recommendation-card">
+          <div class="rec-icon peach">03</div><span class="priority medium">Prioritas menengah</span>
+          <h3>Perbaiki tampilan informasi</h3><p>Tonjolkan jadwal, status KRS, dan nilai dengan hierarki visual yang jelas serta kontras warna yang nyaman dibaca.</p>
+          <div class="rec-tags"><span>Visual hierarchy</span><span>Accessibility</span></div>
+        </article>
+      </div>
+      <div class="method-panel panel">
+        <h3>Langkah evaluasi lanjutan</h3>
+        <div class="method-steps">
+          <div><span>1</span><strong>Kenali pengguna</strong><p>Wawancara mahasiswa mengenai kendala yang dialami.</p></div>
+          <div><span>2</span><strong>Buat prototipe</strong><p>Rancang perbaikan antarmuka menggunakan wireframe.</p></div>
+          <div><span>3</span><strong>Uji kegunaan</strong><p>Minta pengguna mencoba tugas dan catat kendalanya.</p></div>
+          <div><span>4</span><strong>Evaluasi ulang</strong><p>Bandingkan hasil sebelum dan sesudah perbaikan.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <footer><span>UX Insight · Studi Kasus HCI & Data Visualization</span><span>Dibuat untuk pembelajaran · Data simulasi</span></footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
